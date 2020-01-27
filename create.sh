@@ -61,10 +61,11 @@ fi
 
 # Copy the template to the output
 
-cp -a "${template}" "${gitpkg}"
+rsync -a "${template}/" "${gitpkg}/"
 
 # Substitute names
 
+mv "${gitpkg}/s4example" "${gitpkg}/${pkg}"
 find "${gitpkg}" -type f -exec sed -i -e "s/s4example/${pkg}/g" '{}' \;
 
 # Run versioneer and formatting

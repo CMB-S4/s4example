@@ -17,25 +17,23 @@ Next, clone this s4example repository locally.  From the top level of this git c
 choose the correct example starting point (pure python or hybrid python / C++) for your
 use case and then run the included script:
 
-    %> ./create.sh <template name> <new package name>
+    %> ./create.sh <template name> <new package name> <path to local git checkout>
 
 For example:
 
-    %> ./create.sh python s4newpackage
+    %> ./create.sh python s4newpackage ~/git/s4newpackage
 
 OR
 
-    %> ./create.sh python_cpp s4newpackage
+    %> ./create.sh python_cpp s4newpackage ~/git/s4newpackage
 
-This will produce a directory of files for your new package.  Copy the contents of this
-directory into the git checkout for your package.  Use the `-a` option so that "dot"
-files (like `.travis`) are copied as well.  For example:
-
-    %> cp -a s4newpackage/ /path/to/git/s4newpackage/
+This will populate the git checkout `~/git/s4newpackage` with the contents of the
+template and will substitute your package name (`s4newpackage`) everywhere.
 
 ## Step 3:  Commit the Files
 
-Go into your git checkout where you just placed these new files and do:
+Go into your git checkout where you just placed these new files (`~/git/s4newpackage` in
+the previous example) and do:
 
     %> git status
 

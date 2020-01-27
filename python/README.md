@@ -44,7 +44,7 @@ OR
 
     %>  python3 setup.py develop --prefix /some/place
 
-These commands will fail unless the prefix is in you PYTHONPATH.
+These commands will fail unless the prefix is in your PYTHONPATH.
 
 
 ## Running Unit Tests
