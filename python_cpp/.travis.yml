@@ -101,9 +101,7 @@ jobs:
 env:
   global:
     # Binary packages to install with pip
-    - PIP_BINARY="numpy scipy matplotlib"
-    # Packages to build from source with pip (which will use the selected compiler)
-    - PIP_SOURCE="healpy"
+    - PIP_BINARY="numpy scipy matplotlib healpy"
     # Other CMB-S4 dependencies to install from github.  Specify the version of each
     # package to install.
     #-CMBS4_PIP="s4example=master"
@@ -116,8 +114,6 @@ before_install:
     - echo "  CXX = ${CXX} $(${CXX} -dumpversion)"
     # Install binary python dependencies.
     - pip3 install $PIP_BINARY
-    # Install from source (use quotes here to escape colon from yaml)
-    - if [ "x$PIP_SOURCE" != "x" ]; then "pip3 install --no-binary :all: $PIP_SOURCE"; fi
     # Install CMB-S4 dependencies
     - for p in $CMBS4_PIP; do r=$(echo $p | cut -d= -f1); v=$(echo $p | cut -d= -f2); pip3 install git+https://github.com/CMB-S4/${r}.git@${v}#egg=${r}; done
 
