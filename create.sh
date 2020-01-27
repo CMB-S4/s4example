@@ -59,6 +59,11 @@ if [ "x${VERSIONEER}" = "x" ]; then
     exit 1
 fi
 
+# Does this template include pybind11?
+
+check_cpp=$(echo "${template}" | sed -e "s#.*\(cpp\).*#\1#")
+pybind_version=2.4.3
+
 # Copy the template to the output
 
 rsync -a "${template}/" "${gitpkg}/"
@@ -66,13 +71,24 @@ rsync -a "${template}/" "${gitpkg}/"
 # Substitute names
 
 mv "${gitpkg}/s4example" "${gitpkg}/${pkg}"
+if [ "x${check_cpp}" = "xcpp" ]; then
+    # Rename the bindings
+    mv "${gitpkg}/${pkg}/_s4example.cpp" "${gitpkg}/${pkg}/_${pkg}.cpp"
+fi
 find "${gitpkg}" -type f -exec sed -i -e "s/s4example/${pkg}/g" '{}' \;
 
-# Run versioneer and formatting
+# Run versioneer, formatting, and get pybind11 if needed.
 
 pushd "${gitpkg}" > /dev/null
 
 ${VERSIONEER} install
+
+if [ "x${check_cpp}" = "xcpp" ]; then
+    curl -SL https://github.com/pybind/pybind11/archive/v${pybind_version}.tar.gz -o pybind11-${pybind_version}.tar.gz
+    tar xzvf pybind11-${pybind_version}.tar.gz -C ${pkg} --strip-components=2 pybind11-${pybind_version}/include/pybind11
+    rm -f pybind11-${pybind_version}.tar.gz
+fi
+
 ./format_source.sh
 
 popd > /dev/null
