@@ -48,8 +48,10 @@ class CustomClean(CleanCommand):
         clean_files = [
             "./build",
             "./dist",
+            "./tmp",
             "./__pycache__",
             "s4example/__pycache__",
+            "s4example/*.so",
             "s4example/tests/__pycache__",
             "s4example/scripts/__pycache__",
             "./*.egg-info",

@@ -19,5 +19,5 @@ class FakeTest(TestCase):
     def test_fake(self):
         fc = fake_function()
         print(fc)
-        data = fc.make_data()
+        data = fc.make_data(3)
         print(data, flush=True)

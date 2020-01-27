@@ -22,7 +22,7 @@ PYBIND11_MODULE(_s4example, m) {
 
     py::class_ <
         s4example::FakeCompiled,  // The class to wrap
-        std::shared_ptr <s4example::FakeCompiled>  // The smart pointer to use
+        s4example::FakeCompiled::pshr  // The smart pointer class to use
     > (
         m, "FakeCompiled", R"(
         Simple fake class.
