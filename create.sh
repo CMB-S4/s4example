@@ -56,14 +56,19 @@ fi
 
 cp -a "${template}" "${pkg}"
 
+# Move package directory to new name
+
+mv "${pkg}/s4example" "${pkg}/${pkg}"
+
 # Substitute names
 
-find "${pkg}" -exec sed -i -e "s/s4example/${pkg}/g"
+find "${pkg}" -type f -exec sed -i -e "s/s4example/${pkg}/g" '{}' \;
 
-# Run versioneer
+# Run versioneer and formatting
 
 pushd "${pkg}" > /dev/null
 
 ${VERSIONEER} install
+./format_source.sh
 
 popd > /dev/null

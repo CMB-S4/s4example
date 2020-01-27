@@ -22,7 +22,7 @@ setup_opts["entry_points"] = {
 }
 
 setup_opts["name"] = "s4example"
-setup_opts["provides"] = "s4example"
+setup_opts["provides"] = ["s4example"]
 setup_opts["version"] = versioneer.get_version()
 setup_opts["description"] = "CMB-S4 Example Package"
 setup_opts["author"] = "CMB-S4 Collaboration"
