@@ -11,7 +11,7 @@ popd > /dev/null
 # Get the input template and output package name
 
 usage () {
-    echo "Usage:  $0 <template directory> <package name>"
+    echo "Usage:  $0 <template directory> <package name> <new git repo location>"
 }
 
 template=$1
@@ -32,8 +32,15 @@ if [ "x${pkg}" = "x" ]; then
     exit 1
 fi
 
-if [ -e "${pkg}" ]; then
-    echo "output package directory \"${pkg}\" already exists"
+gitpkg=$3
+
+if [ "x${gitpkg}" = "x" ]; then
+    usage
+    exit 1
+fi
+
+if [ ! -d "${gitpkg}" ]; then
+    echo "package git directory \"${gitpkg}\" does not exist"
 fi
 
 # First, check that we have all the tools we need
@@ -54,19 +61,15 @@ fi
 
 # Copy the template to the output
 
-cp -a "${template}" "${pkg}"
-
-# Move package directory to new name
-
-mv "${pkg}/s4example" "${pkg}/${pkg}"
+cp -a "${template}" "${gitpkg}"
 
 # Substitute names
 
-find "${pkg}" -type f -exec sed -i -e "s/s4example/${pkg}/g" '{}' \;
+find "${gitpkg}" -type f -exec sed -i -e "s/s4example/${pkg}/g" '{}' \;
 
 # Run versioneer and formatting
 
-pushd "${pkg}" > /dev/null
+pushd "${gitpkg}" > /dev/null
 
 ${VERSIONEER} install
 ./format_source.sh

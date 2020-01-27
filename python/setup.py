@@ -5,6 +5,8 @@ import sys
 import re
 
 import unittest
+import shutil
+import glob
 
 from setuptools import find_packages, setup, Extension
 from setuptools.command.test import test as TestCommand
@@ -45,6 +47,7 @@ class CustomClean(CleanCommand):
         clean_files = [
             "./build",
             "./dist",
+            "./__pycache__",
             "s4example/__pycache__",
             "s4example/tests/__pycache__",
             "s4example/scripts/__pycache__",

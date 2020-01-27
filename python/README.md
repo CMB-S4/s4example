@@ -1,33 +1,50 @@
 # CMB-S4 Package s4example
 
-This package is an example.  Add more description here...
+This package is an example.  Add more description here.  The install instructions below
+are generic and should not need to be modified.
 
 
 ## Package Installation
 
-This package uses setuptools for package installation.  You can use the setup.py directly for installation or use pip.  Using pip makes it easier to uninstall the package cleanly.  Installation with setup.py to a specific location can be done with:
+This package uses setuptools for package installation.  You can use the setup.py
+directly for installation or use pip.  Using pip makes it possible to uninstall the
+package cleanly.  Installation to a specific location can be done with:
 
-    %>  python3 setup.py install --prefix /some/place
+    %>  pip3 install . --prefix=/some/place
 
 OR
 
-    %>  pip3 install --install-option="--prefix='/some/place'"
+    %>  python3 setup.py install --prefix /some/place
 
-If you do not specify a `--prefix` option, the package will be installed to your python
-installation prefix.  If you are using a virtualenv or a conda environment for your
-development work (always a good idea!) then it is safe to leave out the `--prefix`
-option and install the package into your environment.
+If you specify a `--prefix` option, then that location should already be in your PATH /
+PYTHONPATH environment.  For example, you must have previously set up your environment
+with:
+
+    %>  export PATH="/some/place/bin:${PATH}"
+    %>  export PYTHONPATH="/some/place/lib/python3.x/site-packages:${PYTHONPATH}"
+
+Where `3.x` is the actual python version you are using.  If you do not specify a
+`--prefix` option, the package will be installed to your python installation prefix.
+**If** you are using a virtualenv or a conda environment for your development work
+(always a good idea!) then it is safe to leave out the `--prefix` option and install the
+package into your environment.
+
+If you have used pip to do the installation, then you can uninstall with:
+
+    %>  pip3 uninstall s4example
 
 If you want to be able to edit the source and have those changes show up in your
 environment without re-installing, then you can use the package in develop / editable
 mode.  This is done slightly differently depending on whether you use setup.py directly
 or pip:
 
-    %>  python3 setup.py develop --prefix /some/place
+    %>  pip3 install -e . --prefix=/some/place
 
 OR
 
-    %>  pip3 -e install --install-option="--prefix='/some/place'"
+    %>  python3 setup.py develop --prefix /some/place
+
+These commands will fail unless the prefix is in you PYTHONPATH.
 
 
 ## Running Unit Tests
