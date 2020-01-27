@@ -1,0 +1,20 @@
+# We set the language to python, even if we use compiled extensions.
+language: python
+
+# The python versions to test.  This is a very simple build matrix since we have
+# no compiled extensions and do not have to test against different compiler versions.
+python:
+    - 3.4
+    - 3.6
+
+before_install:
+    # Install binary python dependencies.
+    - pip3 install -q numpy scipy matplotlib
+
+# Install package
+install:
+    - pip3 install .
+
+# Run tests
+script:
+    - python3 -c 'import s4example.tests; s4example.tests.run()'
